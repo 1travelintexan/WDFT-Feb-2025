@@ -1,0 +1,26 @@
+body {
+  background-color: rgb(32, 28, 28);
+  color: white;
+}
+/* targeting all of the tags */
+/* img {
+  height: 200px;
+} */
+/* targeting by a class name */
+.ironhack-img {
+  height: 100px;
+}
+.big-image {
+  height: 500px;
+}
+/*targeting by an id */
+#header {
+  color: rgb(255, 255, 255);
+  /* background-color: aqua; */
+  /* padding-left: 300px;
+  padding-top: 200px; */
+  padding: 150px 0 150px 200px;
+  background-image: url("../images/7bfa6f00-509d-490d-ad24-207c7e9d135f_thumbnail.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
