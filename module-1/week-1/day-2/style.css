@@ -1,0 +1,45 @@
+body {
+  background-color: black;
+  color: aliceblue;
+  padding: 0;
+  margin: 0;
+}
+h1 {
+  background-color: aquamarine;
+  width: 200px;
+  padding: 30px;
+  border: 5px solid red;
+  margin: 0px 50px 0 20px;
+}
+img {
+  display: none;
+}
+
+/*flexbox practice*/
+div {
+  background-color: rgb(243, 155, 48);
+  height: 300px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  /* flex-direction: column; */
+}
+
+/*our first break point for wider than 375 */
+@media screen and (min-width: 400px) {
+  h1 {
+    background-color: rgb(247, 9, 223);
+    font-size: 4rem;
+  }
+}
+/*second break */
+@media screen and (min-width: 1000px) {
+  h1 {
+    background-color: rgb(9, 247, 29);
+    font-size: 6rem;
+    width: 40%;
+  }
+  img {
+    display: block;
+  }
+}
