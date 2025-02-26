@@ -1,0 +1,34 @@
+body {
+  color: aqua;
+}
+
+.our-cool-class {
+  border: 5px solid grey;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 3rem;
+  color: aquamarine;
+  background-color: blue;
+}
+
+button {
+  display: block;
+  margin: 20px;
+}
+
+li {
+  list-style-type: none;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid blue;
+}
+h4 {
+  cursor: pointer;
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  width: 150px;
+}
+h4:hover {
+  box-shadow: 5px 5px 20px red;
+}
