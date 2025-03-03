@@ -16,8 +16,9 @@ class Game {
     this.height = 600;
     this.width = 500;
     this.obstacles = [];
+    this.projectiles = [];
     this.score = 0;
-    this.lives = 1;
+    this.lives = 3;
     this.gameIsOver = false;
     this.gameIntervalId = null;
     this.gameLoopFrequency = Math.round(1000 / 60);
@@ -84,6 +85,28 @@ class Game {
         //dont forget to remove the img element from the html
         currentObstacle.element.remove();
       }
+
+      //this is where we start with the projectiles
+      for (let j = 0; j < this.projectiles.length; j++) {
+        const currentProjectile = this.projectiles[j];
+        //every projectile has the didCollide method
+        if (currentProjectile.didCollide(currentObstacle)) {
+          this.obstacles.splice(i, 1);
+          i--;
+          //dont forget to remove the img element from the html
+          currentObstacle.element.remove();
+          //remove all of the projectile stuff too
+          this.projectiles.splice(j, 1);
+          j--;
+          currentProjectile.element.remove();
+        }
+      }
+    }
+
+    //this is a loop just to move the projectiles
+    for (let k = 0; k < this.projectiles.length; k++) {
+      const currentProjectile = this.projectiles[k];
+      currentProjectile.move();
     }
   }
   gameOver() {

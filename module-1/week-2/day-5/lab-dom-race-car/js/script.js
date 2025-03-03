@@ -31,6 +31,19 @@ window.onload = function () {
       ourNewGame.player.directionX = -5;
     } else if (event.code === "ArrowRight") {
       ourNewGame.player.directionX = 5;
+    } else if (event.code === "Space") {
+      if (!ourNewGame.player.isShooting) {
+        const theCarLeft = ourNewGame.player.positionLeft;
+        const theCarTop = ourNewGame.player.positionTop;
+        ourNewGame.projectiles.push(
+          new Projectile(ourNewGame.gameScreen, theCarLeft + 52, theCarTop - 50)
+        );
+        ourNewGame.player.isShooting = true;
+
+        setTimeout(() => {
+          ourNewGame.player.isShooting = false;
+        }, 1000);
+      }
     }
   });
   window.addEventListener("keyup", (e) => {

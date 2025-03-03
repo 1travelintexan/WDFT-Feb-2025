@@ -13,6 +13,10 @@ class Player {
     this.height = playerHeight;
     this.directionX = 0;
     this.directionY = 0;
+    this.horn = new Audio("../assets/horn.wav");
+    this.horn.volume = 0.1;
+    this.isShooting = false;
+    //this is the img tag
     this.element = document.createElement("img");
     this.element.src = playerImageSrc;
     this.element.style.position = "absolute";
@@ -59,6 +63,14 @@ class Player {
       playerRect.top < obstacleRect.bottom &&
       playerRect.bottom > obstacleRect.top
     ) {
+      //this plays the horn sound on collision
+      // this.horn.play();
+      //this is testing the spin class
+      this.element.classList.add("spin");
+      setTimeout(() => {
+        //remove class spin after one second
+        this.element.classList.remove("spin");
+      }, 750);
       return true;
     } else {
       return false;
