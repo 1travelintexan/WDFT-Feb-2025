@@ -24,13 +24,13 @@ window.onload = function () {
   //keyboard event listeners
   window.addEventListener("keydown", (event) => {
     if (event.code === "ArrowUp") {
-      ourNewGame.player.directionY = -5;
+      ourNewGame.player.directionY = -ourNewGame.playerSpeed;
     } else if (event.code === "ArrowDown") {
-      ourNewGame.player.directionY = 5;
+      ourNewGame.player.directionY = ourNewGame.playerSpeed;
     } else if (event.code === "ArrowLeft") {
-      ourNewGame.player.directionX = -5;
+      ourNewGame.player.directionX = -ourNewGame.playerSpeed;
     } else if (event.code === "ArrowRight") {
-      ourNewGame.player.directionX = 5;
+      ourNewGame.player.directionX = ourNewGame.playerSpeed;
     } else if (event.code === "Space") {
       if (!ourNewGame.player.isShooting) {
         const theCarLeft = ourNewGame.player.positionLeft;
@@ -39,7 +39,6 @@ window.onload = function () {
           new Projectile(ourNewGame.gameScreen, theCarLeft + 52, theCarTop - 50)
         );
         ourNewGame.player.isShooting = true;
-
         setTimeout(() => {
           ourNewGame.player.isShooting = false;
         }, 1000);

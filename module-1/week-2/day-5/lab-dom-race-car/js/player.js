@@ -63,14 +63,6 @@ class Player {
       playerRect.top < obstacleRect.bottom &&
       playerRect.bottom > obstacleRect.top
     ) {
-      //this plays the horn sound on collision
-      // this.horn.play();
-      //this is testing the spin class
-      this.element.classList.add("spin");
-      setTimeout(() => {
-        //remove class spin after one second
-        this.element.classList.remove("spin");
-      }, 750);
       return true;
     } else {
       return false;

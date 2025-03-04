@@ -13,9 +13,11 @@ class Game {
       180,
       "../images/car.png"
     );
+    this.playerSpeed = 2;
     this.height = 600;
     this.width = 500;
     this.obstacles = [];
+    this.goodObstacles = [];
     this.projectiles = [];
     this.score = 0;
     this.lives = 3;
@@ -42,6 +44,9 @@ class Game {
     this.counter++;
     if (this.counter % 160 === 0) {
       this.obstacles.push(new Obstacle(this.gameScreen));
+    }
+    if (this.counter % 200 === 0) {
+      this.goodObstacles.push(new GoodObstacle(this.gameScreen));
     }
 
     this.update();
@@ -71,6 +76,14 @@ class Game {
         if (this.lives === 0) {
           this.gameIsOver = true;
         }
+        //this plays the horn sound on collision
+        this.player.horn.play();
+        //this is testing the spin class
+        this.player.element.classList.add("spin");
+        setTimeout(() => {
+          //remove class spin after one second
+          this.player.element.classList.remove("spin");
+        }, 750);
       }
 
       //check if the red passes the blue...
@@ -100,6 +113,24 @@ class Game {
           j--;
           currentProjectile.element.remove();
         }
+      }
+    }
+
+    //this is for the 'good' obstacles
+    for (let i = 0; i < this.goodObstacles.length; i++) {
+      const currentGoodObstacle = this.goodObstacles[i];
+      currentGoodObstacle.move();
+      //check if the obstacle is colliding with the player
+      if (this.player.didCollide(currentGoodObstacle)) {
+        //remove the red car from the array in JS
+        this.goodObstacles.splice(i, 1);
+        i--;
+        //dont forget to remove the img element from the html
+        currentGoodObstacle.element.remove();
+        this.playerSpeed = 10;
+        setTimeout(() => {
+          this.playerSpeed = 2;
+        }, 2000);
       }
     }
 
