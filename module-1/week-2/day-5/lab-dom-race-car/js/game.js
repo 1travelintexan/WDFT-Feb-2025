@@ -5,6 +5,9 @@ class Game {
     this.gameOverScreen = document.getElementById("game-end");
     this.scoreElement = document.getElementById("score");
     this.livesElement = document.getElementById("lives");
+    this.highScoresListElement = document.getElementById("high-scores");
+    this.nameInputElement = document.getElementById("name-input");
+    this.playerName = this.nameInputElement.value;
     this.player = new Player(
       this.gameScreen,
       85,
@@ -19,8 +22,8 @@ class Game {
     this.obstacles = [];
     this.goodObstacles = [];
     this.projectiles = [];
-    this.score = 0;
-    this.lives = 3;
+    this.score = 1;
+    this.lives = 1;
     this.gameIsOver = false;
     this.gameIntervalId = null;
     this.gameLoopFrequency = Math.round(1000 / 60);
@@ -147,5 +150,47 @@ class Game {
     this.gameScreen.style.display = "none";
     //show the game over screen
     this.gameOverScreen.style.display = "block";
+
+    //logic for the high scores
+    //this is with just the scores
+    // const scoresInStorage = JSON.parse(localStorage.getItem("high-scores"));
+    // if (scoresInStorage) {
+    //   scoresInStorage.push(this.score);
+    //   const topThreeScores = scoresInStorage.sort((a, b) => b - a).slice(0, 3);
+    //   localStorage.setItem("high-scores", JSON.stringify(topThreeScores));
+    // } else {
+    //   localStorage.setItem("high-scores", JSON.stringify([this.score]));
+    // }
+    // const updatedScoresInStorage = JSON.parse(
+    //   localStorage.getItem("high-scores")
+    // );
+    // updatedScoresInStorage.forEach((oneScore) => {
+    //   const ourLiElement = document.createElement("li");
+    //   ourLiElement.innerText = oneScore;
+    //   this.highScoresListElement.appendChild(ourLiElement);
+    // });
+
+    //this is with objects and names
+    const scoresInStorage = JSON.parse(localStorage.getItem("high-scores"));
+    if (scoresInStorage) {
+      scoresInStorage.push({ name: this.playerName, score: this.score });
+      const topThreeScores = scoresInStorage
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3);
+      localStorage.setItem("high-scores", JSON.stringify(topThreeScores));
+    } else {
+      localStorage.setItem(
+        "high-scores",
+        JSON.stringify([{ name: this.playerName, score: this.score }])
+      );
+    }
+    const updatedScoresInStorage = JSON.parse(
+      localStorage.getItem("high-scores")
+    );
+    updatedScoresInStorage.forEach((oneScoreObject) => {
+      const ourLiElement = document.createElement("li");
+      ourLiElement.innerText = `${oneScoreObject.name} ${oneScoreObject.score}`;
+      this.highScoresListElement.appendChild(ourLiElement);
+    });
   }
 }
