@@ -14,7 +14,7 @@ class Game {
       400,
       125,
       180,
-      "../images/car.png"
+      "/images/car.png"
     );
     this.playerSpeed = 2;
     this.height = 600;
