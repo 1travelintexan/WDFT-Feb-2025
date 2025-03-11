@@ -1,0 +1,57 @@
+body {
+  background-color: RGB(64, 60, 229);
+  color: white;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 25px;
+}
+.logo {
+  height: 1rem;
+}
+.text-container {
+  width: 70%;
+  margin-left: 30px;
+}
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-size: 2.8rem;
+  line-height: 2.7rem;
+  width: 80%;
+}
+p {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-left: 30px;
+}
+
+.download-btn {
+  background-color: aliceblue;
+  color: white;
+  border-radius: 30px;
+  width: 160px;
+  height: 40px;
+}
+.open-btn {
+  height: 40px;
+  width: 240px;
+  border-radius: 30px;
+  background-color: black;
+}
+.background-image-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.background-image-container img {
+  height: 300px;
+}
