@@ -10,6 +10,7 @@ import { useState } from "react";
 import { PetDetailPage } from "./pages/PetDetailPage";
 import { v4 as uuidv4 } from "uuid";
 import { CreatePetPage } from "./pages/CreatePetPage";
+import { EditPetPage } from "./pages/EditPetPage";
 function App() {
   const pets = [
     {
@@ -86,6 +87,12 @@ function App() {
           <Route
             path="/details/:petId"
             element={<PetDetailPage petsState={petsState} />}
+          />
+          <Route
+            path="/edit/:editPetId"
+            element={
+              <EditPetPage petsState={petsState} setPetsState={setPetsState} />
+            }
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

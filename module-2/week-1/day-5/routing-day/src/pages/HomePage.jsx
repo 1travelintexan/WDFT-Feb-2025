@@ -13,6 +13,10 @@ export const HomePage = (props) => {
             <Link to={`/details/${onePet.id}`}>
               <button>Details</button>
             </Link>
+            {/* this is to go to the update page  */}
+            <Link to={`/edit/${onePet.id}`}>
+              <button>Edit</button>
+            </Link>
           </div>
         );
       })}

@@ -1,27 +1,45 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-export const CreatePetPage = (props) => {
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+export const EditPetPage = (props) => {
   const [petName, setPetName] = useState("");
   const [petAge, setPetAge] = useState(1);
   const [petOwner, setPetOwner] = useState("");
   const [picture, setPicture] = useState("");
   const [petType, setPetType] = useState("");
   const [isGood, setIsGood] = useState(false);
-  //ability to navigate in js
+  //first I need the id of the pet that I want to update
+  const { editPetId } = useParams();
+  //take the whole array of pets and find the one with the matching id
   const nav = useNavigate();
+  //after we find the pet, then set all of the states to match the data
+  useEffect(() => {
+    const theFoundPet = props.petsState.find((onePet) => {
+      if (onePet.id === editPetId) {
+        return true;
+      }
+    });
+    console.log(theFoundPet, theFoundPet.isGood);
+    setPetName(theFoundPet.name);
+    setPetAge(theFoundPet.age);
+    setPetOwner(theFoundPet.owner);
+    setPicture(theFoundPet.picture);
+    setPetType(theFoundPet.type);
+    setIsGood(theFoundPet.isGood);
+  }, []);
+  //ability to navigate in js
 
   //functions
   function handleChange(e) {
     // console.log("something was typed", e.target.value);
     setPetName(e.target.value);
   }
-  function handleCreatePet(event) {
+  function handleUpdatePet(event) {
     //always with a form, prevent the page from reloading first
     event.preventDefault();
 
-    const newPetToAdd = {
-      id: uuidv4(),
+    const updatedPet = {
+      id: editPetId,
       name: petName,
       age: petAge,
       owner: petOwner,
@@ -29,13 +47,21 @@ export const CreatePetPage = (props) => {
       type: petType,
       isGood,
     };
-    console.log("in the submit function", newPetToAdd);
-    props.setPetsState([newPetToAdd, ...props.petsState]);
+    const updatedArrayOfPets = props.petsState.map((onePet) => {
+      if (onePet.id === editPetId) {
+        return updatedPet;
+      } else {
+        return onePet;
+      }
+    });
+    console.log("in the update pet function", updatedArrayOfPets);
+    props.setPetsState(updatedArrayOfPets);
+    //after we successfully set the new array of pets
     nav("/");
   }
   return (
-    <form onSubmit={handleCreatePet}>
-      <h3>Create a Pet</h3>
+    <form onSubmit={handleUpdatePet}>
+      <h3>Edit Pet</h3>
       <label>
         Pet Name:
         <input
@@ -101,7 +127,7 @@ export const CreatePetPage = (props) => {
           }}
         />
       </label>
-      <button>Create</button>
+      <button>Update</button>
     </form>
   );
 };
