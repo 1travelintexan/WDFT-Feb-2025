@@ -7,6 +7,7 @@ export const CreateProject = () => {
     title: "",
     description: "",
   });
+  const [image, setImage] = useState(null);
   //create the nav variagble
   const nav = useNavigate();
   function handleTitle(event) {
@@ -18,7 +19,27 @@ export const CreateProject = () => {
     //first we need to stop the page from reloading...
     event.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5005/projects", project);
+      //before sending the project to the server, we need to send the image to cloudinary
+      //create a form data
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "Ironhack");
+      data.append("cloud_name", "dxurcuyga");
+      //after you create the form data and add all the properties
+      //send an axios post request to cloudinary to 'host' your image
+      const cloudinaryResponse = await axios.post(
+        "https://api.cloudinary.com/v1_1/dxurcuyga/image/upload",
+        data
+      );
+      console.log(
+        "here is the cloud res: ",
+        cloudinaryResponse.data.sercure_url
+      );
+      //this is where we send the project to create to the json server
+      const res = await axios.post("http://localhost:5005/projects", {
+        ...project,
+        image: cloudinaryResponse.data.secure_url,
+      });
       console.log("project created! Nice work! You are a dev now", res.data);
       nav("/");
     } catch (error) {
@@ -45,6 +66,15 @@ export const CreateProject = () => {
             type="text"
             value={project.description}
             onChange={handleTitle}
+          />
+        </label>
+        <label>
+          Image:
+          <input
+            type="file"
+            onChange={(event) => {
+              setImage(event.target.files[0]);
+            }}
           />
         </label>
         <button>Create</button>
