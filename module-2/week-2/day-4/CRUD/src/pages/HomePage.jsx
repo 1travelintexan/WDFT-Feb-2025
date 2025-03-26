@@ -3,7 +3,7 @@ import { RecipeContext } from "../contexts/RecipeContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Spinner } from "../components/Spinner";
-import { preload } from "react-dom";
+import { API_URL } from "../config/apiConfig";
 
 export const HomePage = () => {
   // const { allRecipes, handleDelete } = useContext(RecipeContext);
@@ -14,7 +14,7 @@ export const HomePage = () => {
   useEffect(() => {
     setTimeout(() => {
       axios
-        .get("http://localhost:5005/projects")
+        .get(`${API_URL}/projects`)
         .then((res) => {
           console.log(res.data);
           setProjects(res.data);
@@ -35,7 +35,7 @@ export const HomePage = () => {
     setProjects(filteredProjects);
     //second step is to send a request to the json server to delete one project
     axios
-      .delete(`http://localhost:5005/projects/${projectId}`)
+      .delete(`${API_URL}/projects/${projectId}`)
       .then((res) => {
         console.log("project deleted... nice work", res.data);
       })

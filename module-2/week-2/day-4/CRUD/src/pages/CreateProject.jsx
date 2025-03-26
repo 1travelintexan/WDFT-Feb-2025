@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { API_URL } from "../config/apiConfig";
 export const CreateProject = () => {
   const [project, setProject] = useState({
     title: "",
@@ -24,7 +24,7 @@ export const CreateProject = () => {
       const data = new FormData();
       data.append("file", image);
       data.append("upload_preset", "Ironhack");
-      data.append("cloud_name", "dxurcuyga");
+      data.append("cloud_name", import.meta.env.VITE_API_CLOUD_NAME);
       //after you create the form data and add all the properties
       //send an axios post request to cloudinary to 'host' your image
       const cloudinaryResponse = await axios.post(
@@ -36,7 +36,7 @@ export const CreateProject = () => {
         cloudinaryResponse.data.sercure_url
       );
       //this is where we send the project to create to the json server
-      const res = await axios.post("http://localhost:5005/projects", {
+      const res = await axios.post(`${API_URL}/projects`, {
         ...project,
         image: cloudinaryResponse.data.secure_url,
       });
