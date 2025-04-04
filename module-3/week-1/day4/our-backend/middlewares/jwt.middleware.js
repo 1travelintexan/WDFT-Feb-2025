@@ -6,7 +6,8 @@ function isAuthenticated(req, res, next) {
     const theToken = arr[1];
     try {
       const decodedToken = jwt.verify(theToken, process.env.TOKEN_SECRET);
-
+      //this is attaching a payload property to the request object
+      //remember that payload did not exist before this line
       req.payload = decodedToken;
       next();
     } catch (error) {
