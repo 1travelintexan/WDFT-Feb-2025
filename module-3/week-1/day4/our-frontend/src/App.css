@@ -1,0 +1,33 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+input {
+  margin: 7px;
+}
+nav {
+  background-color: rgb(18, 112, 112);
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5px;
+}
+nav img {
+  height: 90%;
+}
+.error-message {
+  color: red;
+}
