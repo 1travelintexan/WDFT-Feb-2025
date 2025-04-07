@@ -1,6 +1,9 @@
 const jwt = require("jsonwebtoken");
 
 function isAuthenticated(req, res, next) {
+  if (!req.headers.authorization) {
+    res.status(400).json({ message: "No authorization header" });
+  }
   const arr = req.headers.authorization.split(" ");
   if (arr[0] === "Bearer" && arr[1]) {
     const theToken = arr[1];

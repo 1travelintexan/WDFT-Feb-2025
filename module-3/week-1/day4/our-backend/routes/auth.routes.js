@@ -4,6 +4,7 @@ const UserModel = require("../models/User.model");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const router = require("express").Router();
+
 //post route to signup a user and create them in the DB
 router.post("/signup", (req, res) => {
   //destructure username, email and password from the body
@@ -23,6 +24,7 @@ router.post("/signup", (req, res) => {
       console.log(createdUser);
       const userInDB = createdUser;
       userInDB.password = "*****";
+      userInDB.email = "*****";
       res.status(201).json(userInDB);
     })
     .catch((err) => {
@@ -65,11 +67,12 @@ router.post("/login", async (req, res) => {
           foundUser.password
         );
         //if the password matches and the email exist then we give the user a token
+        console.log("here is the password matching", doesPasswordMatch);
         if (doesPasswordMatch) {
           const theData = { _id: foundUser._id, username: foundUser.username };
           const authToken = jwt.sign(theData, process.env.TOKEN_SECRET, {
             algorithm: "HS256",
-            expiresIn: "24h",
+            expiresIn: "7d",
           });
 
           res
@@ -79,7 +82,7 @@ router.post("/login", async (req, res) => {
           res.status(400).json({ errorMessage: "incorrect passsword" });
         }
       } else {
-        res.status(400).json({ message: "Email doesn't exist" });
+        res.status(400).json({ errorMessage: "Email doesn't exist" });
       }
     })
     .catch((err) => {
