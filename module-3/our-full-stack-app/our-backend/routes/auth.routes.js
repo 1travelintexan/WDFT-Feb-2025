@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/User.model");
+const { isAuthenticated } = require("../middlewares/jwt.middleware");
 //first make a route to create a user with a hashed password
 router.post("/signup", async (req, res) => {
   try {
@@ -55,6 +56,24 @@ router.post("/login", async (req, res) => {
     console.log(error);
     res.status(500).json(error);
   }
+});
+
+router.get("/profile/:userId", async (req, res) => {
+  try {
+    const currentUser = await UserModel.findById(req.params.userId);
+    const userCopy = currentUser;
+    userCopy.password = null;
+
+    res.status(200).json(userCopy);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
+//this route checks if the token is present and valid
+router.get("/verify", isAuthenticated, async (req, res) => {
+  console.log("here in the verify route");
+  res.status(200).json({ message: "Token valid", payload: req.payload });
 });
 
 module.exports = router;
