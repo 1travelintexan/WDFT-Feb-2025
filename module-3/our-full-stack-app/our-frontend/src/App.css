@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+nav {
+  height: 10vh;
+  background-color: rgb(11, 130, 130);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+.logo {
+  height: 75px;
+}
+
+.signup-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+form label {
+  margin: 5px;
+}
+.error {
+  color: red;
+}
+.profile-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.profile-img {
+  height: 40vh;
+}
+.pizza-card {
+  border: 2px solid white;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 20px;
+}
