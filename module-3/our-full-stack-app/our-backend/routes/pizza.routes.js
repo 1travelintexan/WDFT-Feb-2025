@@ -1,17 +1,35 @@
 const router = require("express").Router();
 const PizzaModel = require("../models/Pizza.model");
-
+const uploader = require("../middlewares/cloudinary.middleware");
 //post to create a pizza
-router.post("/create", async (req, res) => {
-  PizzaModel.create(req.body)
-    .then((responseFromDB) => {
-      console.log("pizza created! NOM NOM", responseFromDB);
-      res.status(201).json(responseFromDB);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ errorMessage: "Trouble creating your pizza" });
-    });
+router.post("/create", uploader.single("imageUrl"), async (req, res) => {
+  console.log({ body: req.body, file: req.file });
+
+  if (!req.file) {
+    PizzaModel.create(req.body)
+      .then((responseFromDB) => {
+        console.log("pizza created! NOM NOM", responseFromDB);
+        res.status(201).json(responseFromDB);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ errorMessage: "Trouble creating your pizza" });
+      });
+  } else {
+    const pizzaToCreateWithImage = {
+      ...req.body,
+      pizzaImage: req.file.path,
+    };
+    PizzaModel.create(pizzaToCreateWithImage)
+      .then((responseFromDB) => {
+        console.log("pizza created! NOM NOM", responseFromDB);
+        res.status(201).json(responseFromDB);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ errorMessage: "Trouble creating your pizza" });
+      });
+  }
 });
 
 //route to get all pizzas
