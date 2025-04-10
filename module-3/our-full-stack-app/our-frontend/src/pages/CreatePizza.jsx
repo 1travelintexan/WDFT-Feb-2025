@@ -47,6 +47,10 @@ export const CreatePizza = () => {
             <option value="ragnar-size">Huge</option>
           </select>
         </label>
+        <label>
+          Pizza Image:
+          <input type="file" name="image" />
+        </label>
         <button>Create</button>
       </form>
     </div>

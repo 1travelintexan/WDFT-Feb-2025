@@ -27,11 +27,20 @@ const PizzaContextWrapper = ({ children }) => {
   async function handleCreatePizza(event, aPizza) {
     event.preventDefault();
     aPizza.toppings = aPizza.toppings.split(",");
-    // console.log(event, aPizza);
+    //first for the image, create a form data
+    const myFormData = new FormData();
+    //then add all the properties to the form data with the .append( ) method
+    myFormData.append("title", aPizza.title);
+    myFormData.append("toppings", aPizza.toppings);
+    myFormData.append("size", aPizza.size);
+    myFormData.append("owner", aPizza.owner);
+    //create a variable for the image from the event
+    const image = event.target.image.files[0];
+    myFormData.append("imageUrl", image);
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_API_URL}/pizza/create`,
-        aPizza
+        myFormData
       );
       console.log("pizza created", data);
       setPizzas([data, ...pizzas]);
